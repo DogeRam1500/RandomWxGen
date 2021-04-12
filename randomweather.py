@@ -1,4 +1,5 @@
 from random import *
+from math import *
 number=int(input('How many locations do you need weather data for? '))
 location=[]
 ptype=[]
@@ -18,6 +19,7 @@ for i in range(0,number):
     rain=uniform(0,15)
     snow=uniform(0,69)
     wind=randint(0,269)
+    rh=randint(1,100)
     winter_weather=winter_conditions[randint(0,len(winter_conditions)-1)]
     summer_weather=summer_conditions[randint(0,len(summer_conditions)-1)]
     mixed_weather=mixed_conditions[randint(0,len(mixed_conditions)-1)]
@@ -36,8 +38,13 @@ for i in range(0,number):
     else:
         max_temp=temp2
         min_temp=temp1
-    windchill=randint(-100,min_temp)
-    heat_index=randint(max_temp,169)
+    windchill=int(round(35.74+(0.6215*min_temp)-(35.75*wind**0.16)+(0.4275*min_temp*wind**0.16),0))
+    if rh<13 and 80<=max_temp<=112:
+        heat_index=int(round((-42.379+2.04901523*max_temp+10.14333127*rh-0.22475541*max_temp*rh-0.00683783*max_temp**2-0.05481717*rh**2+0.00122874*max_temp**2*rh+0.00085282*max_temp*rh**2-0.00000199*max_temp**2*rh**2)-(((13-rh)/4)*sqrt((17-abs(max_temp-95))/17)),0))
+    elif rh>85 and 80<=max_temp<=87:
+        heat_index=(int(round((-42.379+2.04901523*max_temp+10.14333127*rh-0.22475541*max_temp*rh-0.00683783*max_temp**2-0.05481717*rh**2+0.00122874*max_temp**2*rh+0.00085282*max_temp*rh**2-0.00000199*max_temp**2*rh**2)+(((rh-85)/10)*((87-max_temp)/5)),0)))
+    else:
+        heat_index=int(round(-42.379+2.04901523*max_temp+10.14333127*rh-0.22475541*max_temp*rh-0.00683783*max_temp**2-0.05481717*rh**2+0.00122874*max_temp**2*rh+0.00085282*max_temp*rh**2-0.00000199*max_temp**2*rh**2,0))
     print('Observed weather for ''{}'.format(location[i]))
     if ptype[i].lower()=='snow':
         print('{}'.format(winter_weather))
@@ -47,7 +54,7 @@ for i in range(0,number):
         print('{}'.format(mixed_weather))
     else:
         print('That wasn\'t an option, you dumbass.')
-    print('Max temp: ''{}''°F''\n''Min Temp: ''{}''°F''\n''Max Wind Gust: ''{}'.format(max_temp,min_temp,wind))
+    print('Max temp: ''{}''°F''\n''Min Temp: ''{}''°F''\n''Max RH: ''{}''%''\n''Max Wind Gust: ''{}'' mph'.format(max_temp,min_temp,rh,wind))
     if min_temp<40:
         print('Wind Chill: ''{}''°F'.format(windchill))
     if max_temp>80:
