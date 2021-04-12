@@ -68,9 +68,9 @@ for i in range(0,number):
         else:
             print('Snowfall: ''{}'' inches''\n''Rainfall: ''{}'' inches'.format(round(snow,1),round(rain,2)))
     elif ptype[i].lower()=='cum':
-        print('Precip: sticky white stuff.''\n')
+        print('Precip: sticky white stuff.')
     else:
-        print('That is not a valid precip type, you moron.''\n')
+        print('That is not a valid precip type, you moron.')
     print('Active Warnings')
     if ptype[i].lower()=='snow':
         for n in range(0,randint(0,len(winter_warnings)-1)):
@@ -89,4 +89,4 @@ for i in range(0,number):
             print(summer_warnings[n])
         for n in range(0,randint(0,len(other_warnings)-1)):
             print(other_warnings[n])
-    print('\n')
+    print()
