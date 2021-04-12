@@ -5,6 +5,12 @@ ptype=[]
 winter_conditions=['Overcast','Heavy Snow','Blowing Snow','Sleet','Light Snow','Heavy Snow','Blowing Snow','Sleet','Light Snow','Heavy Snow','Blowing Snow','Sleet','Light Snow','Heavy Snow','Blowing Snow','Sleet','Light Snow','Heavy Snow','Blowing Snow','Sleet','Light Snow','Heavy Snow','Blowing Snow','Sleet','Light Snow']
 summer_conditions=['Overcast','Thunder','Thunderstorm','Heavy Rain','Thunder','Thunderstorm','Heavy Rain','Thunder','Thunderstorm','Heavy Rain','Thunder','Thunderstorm','Heavy Rain','Thunder','Thunderstorm','Heavy Rain','Thunder','Thunderstorm','Heavy Rain']
 mixed_conditions=['Overcast','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip']
+winter_warnings=['Winter Storm Watch', 'Blizzard Warning', 'Winter Storm Warning', 'Ice Storm Warning', 'Winter Weather Advisory', 'Wind Chill Advisory', 'Wind Chill Warning']
+summer_warnings=['Severe Thunderstorm Watch', 'Severe Thunderstorm Warning', 'Tornado Watch', 'Excessive Heat Watch', 'Excessive Heat Warning', 'Tropical Storm Watch', 'Tropical Storm Warning', 'Hurricane Watch', 'Hurricane Warning']
+other_warnings=['Red Flag Warning', 'High Wind Watch', 'High Wind Warning', 'Tornado Warning', 'Extreme Wind Warning', 'Flash Flood Watch', 'Flash Flood Warning', 'Flood Watch', 'Flood Warning']
+winter_alerts=[]
+summer_alerts=[]
+other_alerts=[]
 for i in range(0,number):
     location.append(input('Please enter location ''{}'': '.format(i+1)))
     ptype.append(input('What type of precip is ''{}'' expecting (rain, snow, or both)? '.format(location[i])))
@@ -48,20 +54,39 @@ for i in range(0,number):
         print('Heat Index: ''{}''°F'.format(heat_index))
     if ptype[i].lower()=='snow':
         if winter_weather.lower()=='overcast':
-            print('Snowfall: 0.0 inches. Sorry, you busted.''\n')
+            print('Snowfall: 0.0 inches. Sorry, you busted.')
         else:
-            print('Snowfall: ''{}'' inches''\n'.format(round(snow,1)))
+            print('Snowfall: ''{}'' inches'.format(round(snow,1)))
     elif ptype[i].lower()=='rain':
         if summer_weather.lower()=='overcast':
-            print('Rainfall: 0.03 inches. Sorry, try again tomorrow.''\n')
+            print('Rainfall: 0.03 inches. Sorry, try again tomorrow.')
         else:
-            print('Rainfall: ''{}'' inches''\n'.format(round(rain,2)))
+            print('Rainfall: ''{}'' inches'.format(round(rain,2)))
     elif ptype[i].lower()=='both':
         if mixed_weather.lower()=='overcast':
-            print('Snowfall: 0.1 inches''\n''Rainfall: 0.09 inches. Better luck next time.''\n')
+            print('Snowfall: 0.1 inches''\n''Rainfall: 0.09 inches. Better luck next time.')
         else:
-            print('Snowfall: ''{}'' inches''\n''Rainfall: ''{}'' inches''\n'.format(round(snow,1),round(rain,2)))
+            print('Snowfall: ''{}'' inches''\n''Rainfall: ''{}'' inches'.format(round(snow,1),round(rain,2)))
     elif ptype[i].lower()=='cum':
         print('Precip: sticky white stuff.''\n')
     else:
         print('That is not a valid precip type, you moron.''\n')
+    print('Active Warnings')
+    if ptype[i].lower()=='snow':
+        for n in range(0,randint(0,len(winter_warnings)-1)):
+            print(winter_warnings[n])
+        for n in range(0,randint(0,len(other_warnings)-1)):
+            print(other_warnings[n])
+    if ptype[i].lower()=='rain':
+        for n in range(0,randint(0,len(summer_warnings)-1)):
+            print(summer_warnings[n])
+        for n in range(0,randint(0,len(other_warnings)-1)):
+            print(other_warnings[n])
+    if ptype[i].lower()=='both':
+        for n in range(0,randint(0,len(winter_warnings)-1)):
+            print(winter_warnings[n])
+        for n in range(0,randint(0,len(summer_warnings)-1)):
+            print(summer_warnings[n])
+        for n in range(0,randint(0,len(other_warnings)-1)):
+            print(other_warnings[n])
+    print('\n')
