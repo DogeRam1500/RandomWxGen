@@ -77,16 +77,20 @@ for i in range(0,number):
             print(winter_warnings[n])
         for n in range(0,randint(0,len(other_warnings)-1)):
             print(other_warnings[n])
-    if ptype[i].lower()=='rain':
+    elif ptype[i].lower()=='rain':
         for n in range(0,randint(0,len(summer_warnings)-1)):
             print(summer_warnings[n])
         for n in range(0,randint(0,len(other_warnings)-1)):
             print(other_warnings[n])
-    if ptype[i].lower()=='both':
+    elif ptype[i].lower()=='both':
         for n in range(0,randint(0,len(winter_warnings)-1)):
             print(winter_warnings[n])
         for n in range(0,randint(0,len(summer_warnings)-1)):
             print(summer_warnings[n])
         for n in range(0,randint(0,len(other_warnings)-1)):
             print(other_warnings[n])
+    elif ptype[i].lower()=='cum':
+        print('Stop being horny.')
+    else:
+        print('No warnings beacuse you\'re dumb.')
     print()
