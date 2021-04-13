@@ -67,6 +67,8 @@ for i in range(0,number):
     elif ptype[i].lower()=='rain':
         if summer_weather.lower()=='overcast':
             print('Rainfall: 0.03 inches. Sorry, try again tomorrow.')
+        elif summer_weather.lower()=='thunderstorm':
+            print('Max hail size: ''{}'' inches'.format(round(uniform(0,7),1)))
         else:
             print('Rainfall: ''{}'' inches'.format(round(rain,2)))
     elif ptype[i].lower()=='both':
