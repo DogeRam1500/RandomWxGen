@@ -3,9 +3,9 @@ from math import *
 number=int(input('How many locations do you need weather data for? '))
 location=[]
 ptype=[]
-winter_conditions=['Overcast','Heavy Snow','Blowing Snow','Sleet','Light Snow','Heavy Snow','Blowing Snow','Sleet','Light Snow','Heavy Snow','Blowing Snow','Sleet','Light Snow','Heavy Snow','Blowing Snow','Sleet','Light Snow','Heavy Snow','Blowing Snow','Sleet','Light Snow','Heavy Snow','Blowing Snow','Sleet','Light Snow']
-summer_conditions=['Overcast','Thunder','Thunderstorm','Heavy Rain','Thunder','Thunderstorm','Heavy Rain','Thunder','Thunderstorm','Heavy Rain','Thunder','Thunderstorm','Heavy Rain','Thunder','Thunderstorm','Heavy Rain','Thunder','Thunderstorm','Heavy Rain']
-mixed_conditions=['Overcast','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip','Mixed Precip','Unknown Precip']
+winter_conditions=['Overcast']*2+['OMGThundersnowOMG']*3+['Heavy Snow']*8+['Blowing Snow']*8+['Sleet']*5+['Light Snow']*10+['Freezing Rain']*3
+summer_conditions=['Overcast']*2+['Thunder']*2+['Thunderstorm']*15+['Heavy Rain']*15+['Mist']*2+['Hail']*10
+mixed_conditions=['Overcast']*2+['Mixed Precip']*18+['Unknown Precip']*19
 winter_warnings=['Winter Storm Watch', 'Blizzard Warning', 'Winter Storm Warning', 'Ice Storm Warning', 'Winter Weather Advisory', 'Wind Chill Advisory', 'Wind Chill Warning']
 summer_warnings=['Severe Thunderstorm Watch', 'Severe Thunderstorm Warning', 'Tornado Watch', 'Excessive Heat Watch', 'Excessive Heat Warning', 'Tropical Storm Watch', 'Tropical Storm Warning', 'Hurricane Watch', 'Hurricane Warning']
 other_warnings=['Red Flag Warning', 'High Wind Watch', 'High Wind Warning', 'Tornado Warning', 'Extreme Wind Warning', 'Flash Flood Watch', 'Flash Flood Warning', 'Flood Watch', 'Flood Warning']
@@ -16,14 +16,11 @@ for i in range(0,number):
     location.append(input('Please enter location ''{}'': '.format(i+1)))
     ptype.append(input('What type of precip is ''{}'' expecting (rain, snow, or both)? '.format(location[i])))
 for i in range(0,number):    
-    rain=uniform(0,15)
-    snow=uniform(0,69)
-    wind=randint(0,269)
+    wind=randint(0,169)
     rh=randint(1,100)
-    hail=uniform(0,7)
-    winter_weather=winter_conditions[randint(0,len(winter_conditions)-1)]
-    summer_weather=summer_conditions[randint(0,len(summer_conditions)-1)]
-    mixed_weather=mixed_conditions[randint(0,len(mixed_conditions)-1)]
+    winter_weather=winter_conditions=choice(winter_conditions)
+    summer_weather=choice(summer_conditions)
+    mixed_weather=choice(mixed_conditions)
     if ptype[i].lower()=='snow':
         temp1=randint(-50,40)
         temp2=randint(-50,40)
@@ -62,21 +59,29 @@ for i in range(0,number):
         print('Heat Index: ''{}''°F'.format(heat_index))
     if ptype[i].lower()=='snow':
         if winter_weather.lower()=='overcast':
-            print('Snowfall: 0.0 inches. Sorry, you busted.')
-        else:
-            print('Snowfall: ''{}'' inches'.format(round(snow,1)))
+            print('Snowfall: ''{}'' inches. Sorry, you busted.'.format(round(uniform(0,1),1)))
+        elif winter_weather.lower()=='omgthundersnowomg' or winter_weather.lower()=='heavy snow':
+            print('Snowfall: ''{}'' inches'.format(round(uniform(0,69),1)))
+        elif winter_weather.lower()=='blowing snow':
+            print('Snowfall: ''{}'' inches'.format(round(uniform(0,19),1)))
+        elif winter_weather.lower()=='sleet':
+            print('Sleetfall: ''{}'' inches'.format(round(uniform(0,6),1)))
+        elif winter_weather.lower()=='light snow':
+            print('Snowfall: ''{}'' inches'.format(round(uniform(0,19),1)))
+        elif winter_weather.lower()=='Freezing Rain':
+            print('Ice accretion: ''{}'' inches'.format(round(uniform(0,2),2)))
     elif ptype[i].lower()=='rain':
-        if summer_weather.lower()=='overcast':
-            print('Rainfall: 0.03 inches. Sorry, try again tomorrow.')
-        elif summer_weather.lower()=='thunderstorm':
-            print('Max hail size: ''{}'' inches''\n''Rainfall: ''{}'' inches'.format(round(hail,1),round(rain,2)))
+        if summer_weather.lower()=='overcast' or summer_weather.lower()=='thunder' or summer_weather.lower()=='mist':
+            print('Rainfall: ''{}'' inches. Sorry, try again tomorrow.'.format(round(uniform(0,1),2)))
+        elif summer_weather.lower()=='hail':
+            print('Max hail size: ''{}'' inches''\n''Rainfall: ''{}'' inches'.format(round(uniform(0,6),1),round(uniform(0,15),2)))
         else:
-            print('Rainfall: ''{}'' inches'.format(round(rain,2)))
+            print('Rainfall: ''{}'' inches'.format(round(uniform(0,15),2)))
     elif ptype[i].lower()=='both':
         if mixed_weather.lower()=='overcast':
-            print('Snowfall: 0.1 inches''\n''Rainfall: 0.09 inches. Better luck next time.')
+            print('Snowfall: ''{}'' inches''\n''Rainfall: ''{}'' inches. Better luck next time.'.format(round(uniform(0,1),1),round(uniform(0,1),2)))
         else:
-            print('Snowfall: ''{}'' inches''\n''Rainfall: ''{}'' inches'.format(round(snow,1),round(rain,2)))
+            print('Snowfall: ''{}'' inches''\n''Rainfall: ''{}'' inches'.format(round(uniform(0,69),1),round(uniform(0,15),2)))
     elif ptype[i].lower()=='cum':
         print('Precip: sticky white stuff.')
     else:
