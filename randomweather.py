@@ -20,6 +20,7 @@ for i in range(0,number):
     snow=uniform(0,69)
     wind=randint(0,269)
     rh=randint(1,100)
+    hail=uniform(0,7)
     winter_weather=winter_conditions[randint(0,len(winter_conditions)-1)]
     summer_weather=summer_conditions[randint(0,len(summer_conditions)-1)]
     mixed_weather=mixed_conditions[randint(0,len(mixed_conditions)-1)]
@@ -68,7 +69,7 @@ for i in range(0,number):
         if summer_weather.lower()=='overcast':
             print('Rainfall: 0.03 inches. Sorry, try again tomorrow.')
         elif summer_weather.lower()=='thunderstorm':
-            print('Max hail size: ''{}'' inches'.format(round(uniform(0,7),1)))
+            print('Max hail size: ''{}'' inches''\n''Rainfall: ''{}'' inches'.format(round(hail,1),round(rain,2)))
         else:
             print('Rainfall: ''{}'' inches'.format(round(rain,2)))
     elif ptype[i].lower()=='both':
