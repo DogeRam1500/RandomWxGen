@@ -12,10 +12,10 @@ summer_conditions=['Overcast']*2+['Thunder']*2+['Thunderstorm']*15+['Heavy Rain'
 mixed_conditions=['Overcast']*2+['Mixed Precip']*18+['Unknown Precip']*19
 no_precip_conditions=['Overcast','Thunder','Mist']
 #list of warnings
-winter_warnings=['Winter Storm Watch', 'Winter Storm Warning', 'Ice Storm Warning', 'Winter Weather Advisory', 'Wind Chill Advisory']
+winter_warnings=['Winter Storm Watch', 'Winter Storm Warning', 'Winter Weather Advisory', 'Wind Chill Advisory']
 summer_warnings=['Severe Thunderstorm Watch', 'Tornado Watch', 'Excessive Heat Watch', 'Tropical Storm Watch', 'Hurricane Watch']
 other_warnings=['High Wind Watch', 'Tornado Warning', 'Flash Flood Watch', 'Flood Watch']
-contexual_warnings=['Gorilla Hail','Blizzard Warning','Wind Chill Warning','Severe Thunderstorm Warning','Excessive Heat Warning','Tropical Storm Warning','Hurricane Warning','Red Flag Warning','High Wind Warning','Extreme Wind Warning','Flash Flood Warning','Flood Warning']
+contexual_warnings=['Gorilla Hail','Blizzard Warning','Wind Chill Warning','Severe Thunderstorm Warning','Excessive Heat Warning','Tropical Storm Warning','Hurricane Warning','Red Flag Warning','High Wind Warning','Extreme Wind Warning','Flash Flood Warning','Flood Warning','Ice Storm Warning']
 #input locations and expected precip
 for i in range(0,number):
     location.append(input('Please enter location ''{}'': '.format(i+1)))
@@ -114,11 +114,11 @@ for i in range(0,number):
         elif mixed_weather=='Mixed Precip':
             wind=randint(0,101)
             rainfall=round(uniform(0,5),2)
-            snowfall=round(uniform(0,19),2)
+            snowfall=round(uniform(0,19),1)
         elif mixed_weather=='Unknown Precip':
             wind=randint(0,101)
             rainfall=round(uniform(0,5),2)
-            snowfall=round(uniform(0,19),2)
+            snowfall=round(uniform(0,19),1)
 #generate contextual values for "None"
     elif ptype[i]=='none':
         extreme=choice(['hot','cold'])
@@ -181,7 +181,7 @@ for i in range(0,number):
     elif ptype[i]=='cum':
         print('Horny today, aren\'t we?')
 #print max temp, min temp, wind gust, max rh
-    print('Max temp: ''{}''°F''\n''Min Temp: ''{}''°F''\n''Wind Gust: ''{}'' mph''\n''Max RH:''{}''%'.format(max_temp,min_temp,wind,rh))
+    print('Max temp: ''{}''°F''\n''Min Temp: ''{}''°F''\n''Wind Gust: ''{}'' mph''\n''Max RH: ''{}''%'.format(max_temp,min_temp,wind,rh))
 #print windchill if it exists
     if windchill!='none':
         print('Wind Chill: ''{}''°F'.format(windchill))
@@ -196,9 +196,10 @@ for i in range(0,number):
             print('Rainfall: ''{}'' inches''\n''Max Hail Size: ''{}'' inches'.format(rainfall,hail))
     elif ptype[i]=='snow':
         if winter_weather!='Freezing Rain':
-            print('Snowfall: ''{}'' inches'.format(snowfall))
-        elif winter_weather=='Sleet':
-            print('Sleetfall: ''{}'' inches'.format(snowfall))
+            if winter_weather=='Sleet':
+                print('Sleetfall: ''{}'' inches'.format(snowfall))
+            else:
+                print('Snowfall: ''{}'' inches'.format(snowfall))
         else:
             print('Freezing Rain Accretion: ''{}'' inches'.format(rainfall))
     elif ptype[i]=='both':
@@ -226,6 +227,10 @@ for i in range(0,number):
     if heat_index!='none':
         if heat_index>=105:
             print(contexual_warnings[3])
+    if ptype[i]=='snow':
+        if winter_weather=='Freezing Rain':
+            if rainfall>=1:
+                print(contexual_warnings[13])
     if ptype[i]=='rain':
         if rainfall>=2 and wind>=63:
             print(contexual_warnings[4])
