@@ -226,14 +226,14 @@ for i in range(0,number):
                 print(contexual_warnings[2])
     if heat_index!='none':
         if heat_index>=105:
-            print(contexual_warnings[3])
+            print(contexual_warnings[4])
     if ptype[i]=='snow':
         if winter_weather=='Freezing Rain':
             if rainfall>=1:
                 print(contexual_warnings[13])
     if ptype[i]=='rain':
         if rainfall>=2 and wind>=63:
-            print(contexual_warnings[4])
+            print(contexual_warnings[3])
         elif rainfall>=2 and wind>=74:
             print(contexual_warnings[5])
     if ptype[i]=='none':
@@ -263,4 +263,4 @@ for i in range(0,number):
     else:
         print('No warnings because you\'re dumb.')
 #add new line betwen cities
-    print()            
+    print()             
