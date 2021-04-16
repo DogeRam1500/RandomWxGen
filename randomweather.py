@@ -1,8 +1,23 @@
 #!/usr/bin/python
 from random import *
 from math import *
+def inputString(message):
+    userInput=input(message).casefold()
+    while userInput not in ['rain','snow','both','none','cum']:
+        print('That was not a valid option.')
+        userInput=input(message).casefold()
+    else:
+        return userInput
+def inputNumber(message):
+    while True:
+        try:
+            userInput=int(input(message))
+        except ValueError:
+            print('Please enter a whole number.')
+        else:
+            return userInput
 #input number of locations
-number=int(input('How many locations do you need weather data for? '))
+number=inputNumber('How many locations do you need weather data for? ')
 #list of locations and expected precip
 location=[]
 ptype=[]
@@ -19,7 +34,7 @@ contexual_warnings=['Gorilla Hail','Blizzard Warning','Wind Chill Warning','Seve
 #input locations and expected precip
 for i in range(0,number):
     location.append(input('Please enter location ''{}'': '.format(i+1)))
-    ptype.append(input('What type of precip is ''{}'' expecting (rain, snow, both, or none)? '.format(location[i])).casefold())
+    ptype.append(inputString('What type of precip is ''{}'' expecting (rain, snow, both, or none)? '.format(location[i])).casefold())
 #generate data
 for i in range(0,number):    
 #generate random conditions
