@@ -4,7 +4,7 @@ from math import *
 def inputString(message):
     userInput=input(message).casefold()
     while userInput not in ['rain','snow','both','none','cum']:
-        print('That was not a valid option.')
+        print('That was not a valid option, dumbass.')
         userInput=input(message).casefold()
     else:
         return userInput
