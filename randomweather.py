@@ -30,7 +30,6 @@ no_precip_conditions=['Overcast','Thunder','Mist']
 winter_warnings=['Winter Storm Watch', 'Winter Storm Warning', 'Winter Weather Advisory', 'Wind Chill Advisory']
 summer_warnings=['Severe Thunderstorm Watch', 'Tornado Watch', 'Excessive Heat Watch', 'Tropical Storm Watch', 'Hurricane Watch']
 other_warnings=['High Wind Watch', 'Tornado Warning', 'Flash Flood Watch', 'Flood Watch']
-contexual_warnings=['Gorilla Hail','Blizzard Warning','Wind Chill Warning','Severe Thunderstorm Warning','Excessive Heat Warning','Tropical Storm Warning','Hurricane Warning','Red Flag Warning','High Wind Warning','Extreme Wind Warning','Flash Flood Warning','Flood Warning','Ice Storm Warning']
 #input locations and expected precip
 for i in range(0,number):
     location.append(input('Please enter location ''{}'': '.format(i+1)))
@@ -183,7 +182,7 @@ for i in range(0,number):
         else:
             heat_index=int(round(-42.379+2.04901523*max_temp+10.14333127*rh-0.22475541*max_temp*rh-0.00683783*max_temp**2-0.05481717*rh**2+0.00122874*max_temp**2*rh+0.00085282*max_temp*rh**2-0.00000199*max_temp**2*rh**2,0))
 #print data
-    print('Observed weather for ''{}'.format(location[i]))
+    print('\n''Observed weather for ''{}'.format(location[i]))
 #print observed conditions based on ptype
     if ptype[i]=='snow':
         print('{}'.format(winter_weather))
@@ -193,7 +192,7 @@ for i in range(0,number):
         print('{}'.format(mixed_weather))
     elif ptype[i]=='none':
         print('{}'.format(no_precip_weather))
-    elif ptype[i]=='cum':
+    else:
         print('Horny today, aren\'t we?')
 #print max temp, min temp, wind gust, max rh
     print('Max temp: ''{}''°F''\n''Min Temp: ''{}''°F''\n''Wind Gust: ''{}'' mph''\n''Max RH: ''{}''%'.format(max_temp,min_temp,wind,rh))
@@ -204,78 +203,60 @@ for i in range(0,number):
     if heat_index!='none':
         print('Heat Index: ''{}''°F'.format(heat_index))
 #print precip
-    if ptype[i]=='rain':
-        if summer_weather!='Hail':
-            print('Rainfall: ''{}'' inches'.format(rainfall))
-        else:
-            print('Rainfall: ''{}'' inches''\n''Max Hail Size: ''{}'' inches'.format(rainfall,hail))
+    if ptype[i]=='rain' and summer_weather!='Hail':
+        print('Rainfall: ''{}'' inches'.format(rainfall))
+    elif ptype[i]=='rain':
+        print('Rainfall: ''{}'' inches''\n''Max Hail Size: ''{}'' inches'.format(rainfall,hail))
+    elif ptype[i]=='snow' and winter_weather=='Sleet':
+            print('Sleetfall: ''{}'' inches'.format(snowfall))
+    elif ptype[i]=='snow' and winter_weather=='Freezing Rain':
+        print('Freezing Rain Accretion: ''{}'' inches'.format(rainfall))
     elif ptype[i]=='snow':
-        if winter_weather!='Freezing Rain':
-            if winter_weather=='Sleet':
-                print('Sleetfall: ''{}'' inches'.format(snowfall))
-            else:
-                print('Snowfall: ''{}'' inches'.format(snowfall))
-        else:
-            print('Freezing Rain Accretion: ''{}'' inches'.format(rainfall))
+        print('Snowfall: ''{}'' inches'.format(snowfall))
     elif ptype[i]=='both':
         print('Snowfall: ''{}'' inches''\n''Rainfall: ''{}'' inches'.format(snowfall,rainfall))
     elif ptype[i]=='none':
         print('No precip')
-    elif ptype[i]=='cum':
-        print('Precip: sticky white stuff.')
     else:
-        print('That wasn\'t a choice, you dumbass')
+        print('Precip: sticky white stuff.')
 #print contextual warnings
-    if snowfall!='none':
-        if snowfall>=10 and wind>=35:
-            print(contexual_warnings[1])
-    if hail!='none':
-        if hail>=6:
-            print(contexual_warnings[0])
-    if windchill!='none':
-        if windchill<=20:
-            print(contexual_warnings[2])
+    if snowfall!='none' and snowfall>=10 and wind>=35:
+        print('Blizzard Warning')
+    if hail!='none' and hail>=6:
+        print('Gorilla Hail')
+    if windchill!='none' and windchill<=20:
+        print('Wind Chill Warning')
     if ptype[i]=='rain' or ptype[i]=='snow':
         if winter_weather=='OMGThundersnowOMG' or summer_weather=='Thunderstorm':
             if wind>=65:
-                print(contexual_warnings[2])
-    if heat_index!='none':
-        if heat_index>=105:
-            print(contexual_warnings[4])
-    if ptype[i]=='snow':
-        if winter_weather=='Freezing Rain':
-            if rainfall>=1:
-                print(contexual_warnings[13])
-    if ptype[i]=='rain':
-        if rainfall>=2 and wind>=63:
-            print(contexual_warnings[3])
-        elif rainfall>=2 and wind>=74:
-            print(contexual_warnings[5])
-    if ptype[i]=='none':
-        if rh<=15 and wind>=15:
-            print(contexual_warnings[6])
+                print('Severe Thuderstorm Warning')
+    if heat_index!='none' and heat_index>=105:
+        print('Excessive Heat Warning')
+    if ptype[i]=='snow' and winter_weather=='Freezing Rain' and rainfall>=1:
+        print('Ice Storm Warning')
+    if ptype[i]=='rain' and rainfall>=2 and 63<=wind<74:
+        print('Tropical Storm Warning')
+    elif ptype[i]=='rain' and rainfall>=2 and wind>=74:
+        print('Hurricane Warning')
+    if ptype[i]=='none' and rh<=15 and wind>=15:
+        print('Red Flag Warning')
     if 58<=wind<=115:
-        print(contexual_warnings[7])
+        print('High Wind Warning')
     if wind>115:
-        print(contexual_warnings[8])
-    if rainfall!='none':
-        if 2<=rainfall<=6:
-            print(contexual_warnings[10])
-        if rainfall>6:
-            print(contexual_warnings[9])
+        print('Extreme Wind Warning')
+    if rainfall!='none' and 2<=rainfall<=6:
+        print('Flood Warning')
+    elif rainfall!='none' and rainfall>6:
+        print('Flash Flood Warning')
 #print random alerts
     if ptype[i]=='cum':
         print('Stop being horny.')
-    elif ptype[i]=='rain' or ptype[i]=='snow' or ptype[i]=='both' or ptype[i]=='none':
-        for n in range (0,len(other_warnings)-1):
+    else:
+        for n in range(randint(0,len(other_warnings)-1)):
             print(other_warnings[n])
         if ptype[i]=='snow':
-            for n in range(0,len(winter_warnings)-1):
+            for n in range(randint(0,len(winter_warnings)-1)):
                 print(winter_warnings[n])
         elif ptype[i]=='rain':
-            for n in range(0,len(summer_warnings)-1):
-                print(summer_warnings[n])
-    else:
-        print('No warnings because you\'re dumb.')
-#add new line betwen cities
-    print()             
+            for n in range(randint(0,len(summer_warnings)-1)):
+                print(summer_warnings[n])      
